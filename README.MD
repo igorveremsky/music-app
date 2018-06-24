@@ -2,7 +2,7 @@
 
 ## Versions
 
-**Docker** - 0.2.0<br>
+**Docker** - 0.3.0<br>
 **API** - 0.0.0<br>
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.0.0<br>
@@ -15,7 +15,7 @@
 
 - [x] PHP 7.2-fpm
 - [x] PHP Extensions for Yii2
-- [ ] Composer
+- [x] Composer
 - [ ] init api application source files
 - [ ] init admin-panel application source files
 - [ ] nginx (1.15)

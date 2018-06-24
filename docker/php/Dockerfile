@@ -71,3 +71,31 @@ RUN printf "\n" | pecl install \
     docker-php-ext-enable \
         imagick \
         mongodb
+
+# Environment settings
+ENV PHP_USER_ID=33 \
+    PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
+    TERM=linux \
+    VERSION_PRESTISSIMO_PLUGIN=^0.3.7 \
+    COMPOSER_ALLOW_SUPERUSER=1
+
+# add extra configs
+COPY configs/docker-php-entrypoint /usr/local/bin
+COPY configs/composer /usr/local/bin
+
+# Add GITHUB_API_TOKEN support for composer
+RUN chmod 700 \
+        /usr/local/bin/docker-php-entrypoint \
+        /usr/local/bin/composer
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer.phar \
+        --install-dir=/usr/local/bin && \
+        composer clear-cache
+
+# Install composer plugins
+RUN composer global require --optimize-autoloader \
+        "hirak/prestissimo:${VERSION_PRESTISSIMO_PLUGIN}" && \
+    composer global dumpautoload --optimize && \
+    composer clear-cache

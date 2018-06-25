@@ -2,6 +2,7 @@ version: '2'
 
 services:
   nginx:
+    container_name: app-nginx
     image: 'nginx:1.15'
     ports:
       - '8080:80'
@@ -14,6 +15,7 @@ services:
       - php
 
   php:
+    container_name: app-php
     build:
       context: '.\docker\php'
     volumes:
@@ -24,6 +26,7 @@ services:
 
   db:
     image: mysql:8.0.3
+    container_name: app-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: secretroot

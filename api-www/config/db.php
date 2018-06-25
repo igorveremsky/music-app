@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'dsn' => 'mysql:host=db;dbname=gt_music_app_db',
     'username' => 'root',
-    'password' => '',
+    'password' => 'secretroot',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

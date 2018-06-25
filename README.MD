@@ -7,7 +7,7 @@
 
 ## Versions
 
-**Docker** - 0.7.0<br>
+**Docker** - 0.8.0<br>
 **API** - 0.0.0<br>
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.0.0<br>
@@ -24,7 +24,7 @@
 - [x] init api application source files
 - [x] init admin-panel application source files
 - [x] nginx (1.15)
-- [ ] MySQL (InnoDB)
+- [x] MySQL (8.0.3, InnoDB)
 - [ ] PhpMyAdmin (4.7)
 - [x] server configurations (nginx)
 - [ ] api application setup configuration

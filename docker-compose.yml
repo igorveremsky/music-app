@@ -10,7 +10,7 @@ services:
       - ./docker/nginx/logs/:/var/log/nginx/
       - ./api-www:/var/www/html/api.gt-music-app.com
       - ./admin-www:/var/www/html/admin.gt-music-app.com
-    links:
+    depends_on:
       - php
 
   php:
@@ -19,3 +19,12 @@ services:
     volumes:
       - ./api-www:/var/www/html/api.gt-music-app.com
       - ./admin-www:/var/www/html/admin.gt-music-app.com
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secretroot
+      MYSQL_DATABASE: gt_music_app_db

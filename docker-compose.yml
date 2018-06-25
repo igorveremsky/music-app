@@ -7,7 +7,9 @@ services:
       - '8080:80'
     volumes:
       - ./docker/nginx/configs/site.conf:/etc/nginx/conf.d/site.conf
-      - ./www:/var/www/html/gt-music-app.com
+      - ./docker/nginx/logs/:/var/log/nginx/
+      - ./api-www:/var/www/html/api.gt-music-app.com
+      - ./admin-www:/var/www/html/admin.gt-music-app.com
     links:
       - php
 
@@ -15,4 +17,5 @@ services:
     build:
       context: '.\docker\php'
     volumes:
-        - ./www:/var/www/html/gt-music-app.com
+      - ./api-www:/var/www/html/api.gt-music-app.com
+      - ./admin-www:/var/www/html/admin.gt-music-app.com

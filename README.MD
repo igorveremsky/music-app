@@ -1,8 +1,13 @@
 # Music Application
 
+## Links
+
+**API** - http://api.gt-music-app.com:8080/<br>
+**Admin panel** - http://admin.gt-music-app.com:8080/<br>
+
 ## Versions
 
-**Docker** - 0.4.0<br>
+**Docker** - 0.5.0<br>
 **API** - 0.0.0<br>
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.0.0<br>
@@ -21,7 +26,7 @@
 - [x] nginx (1.15)
 - [ ] MySQL (InnoDB)
 - [ ] PhpMyAdmin (4.7)
-- [ ] server configurations (nginx)
+- [x] server configurations (nginx)
 - [ ] api application setup configuration
 - [ ] test dumpy data import script
 - [ ] admin panel application setup configuration

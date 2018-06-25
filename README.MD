@@ -25,7 +25,7 @@
 - [x] init admin-panel application source files
 - [x] nginx (1.15)
 - [x] MySQL (8.0.3, InnoDB)
-- [ ] PhpMyAdmin (4.7)
+- [x] PhpMyAdmin (4.7)
 - [x] server configurations (nginx)
 - [ ] api application setup configuration
 - [ ] test dumpy data import script

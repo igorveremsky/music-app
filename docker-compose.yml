@@ -31,3 +31,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secretroot
       MYSQL_DATABASE: gt_music_app_db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: app-phpmyadmin
+    restart: always
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - 8081:80
+    depends_on:
+      - db

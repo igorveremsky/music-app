@@ -1,6 +1,18 @@
 version: '2'
 
 services:
+  nginx:
+    image: 'nginx:1.15'
+    ports:
+      - '8080:80'
+    volumes:
+      - ./docker/nginx/configs/site.conf:/etc/nginx/conf.d/site.conf
+      - ./www:/var/www/html/gt-music-app.com
+    links:
+      - php
+
   php:
     build:
       context: '.\docker\php'
+    volumes:
+        - ./www:/var/www/html/gt-music-app.com

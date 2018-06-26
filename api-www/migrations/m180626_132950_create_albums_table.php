@@ -21,7 +21,7 @@ class m180626_132950_create_albums_table extends Migration
 	    $this->createTable('{{%albums}}', [
 		    'id' => $this->primaryKey(),
 		    'genre_id' => $this->integer(2),
-		    'name' => $this->string()->notNull(),
+		    'name' => $this->string()->unique()->notNull(),
 		    'cover_img_id' => $this->integer(),
 		    'year' => $this->smallInteger()->notNull(),
 		    'records_name' => $this->string()->notNull(),

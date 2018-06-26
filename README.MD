@@ -12,7 +12,7 @@
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.1.0<br>
 **PHPUnit Tests** - 0.0.0<br>
-**DB** - 0.3.0<br>
+**DB** - 0.3.1<br>
 
 ## TODO
 

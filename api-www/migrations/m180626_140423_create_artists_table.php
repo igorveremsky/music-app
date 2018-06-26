@@ -21,7 +21,7 @@ class m180626_140423_create_artists_table extends Migration
 	    $this->createTable('{{%artists}}', [
 		    'id' => $this->primaryKey(),
 		    'name' => $this->string()->unique()->notNull(),
-		    'type' => "ENUM('g', 's')",
+		    'type' => "ENUM('g', 's') NOT NULL",
 		    'avatar_img_id' => $this->integer()->unique(),
 	    ], $tableOptions);
 

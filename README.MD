@@ -71,7 +71,7 @@
 - [x] albums structure
 - [x] tracks structure
 - [x] genres structure
-- [ ] favorites structure
+- [x] favorites structure
 - [ ] elasticsearch
 - [ ] structure optimization (add indexes etc)
 

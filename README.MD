@@ -8,9 +8,9 @@
 ## Versions
 
 **Docker** - 0.9.0<br>
-**API** - 0.0.0<br>
+**API** - 0.1.0<br>
 **Admin panel** - 0.0.0<br>
-**Nginx** - 0.0.0<br>
+**Nginx** - 0.1.0<br>
 **PHPUnit Tests** - 0.0.0<br>
 **DB** - 0.0.0<br>
 
@@ -36,12 +36,12 @@
 
 ### Nginx
 
-- [ ] api application configurations
+- [x] api application configurations
 - [ ] admin-panel application configurations
 
 ### API
 
-- [ ] General api server configurations
+- [x] General api server configurations
 - [ ] Authorization
 - [ ] Artists CRUD
 - [ ] Albums CRUD

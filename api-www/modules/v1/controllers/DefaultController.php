@@ -3,6 +3,9 @@
 namespace app\modules\v1\controllers;
 
 use Yii;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\QueryParamAuth;
 use yii\rest\Controller;
 
 /**
@@ -17,6 +20,14 @@ class DefaultController extends Controller {
 	{
 		$behaviors = parent::behaviors();
 		unset($behaviors['contentNegotiator']['formats']['application/xml']);
+
+		$behaviors['authenticator'] = [
+			'class' => CompositeAuth::className(),
+			'authMethods' => [
+				HttpBearerAuth::className(),
+				QueryParamAuth::className(),
+			],
+		];
 
 		return $behaviors;
 	}

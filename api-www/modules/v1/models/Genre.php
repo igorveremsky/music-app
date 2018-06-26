@@ -31,15 +31,4 @@ class Genre extends \yii\db\ActiveRecord
             [['name'], 'unique'],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-        ];
-    }
 }

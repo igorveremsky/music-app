@@ -8,7 +8,7 @@
 ## Versions
 
 **Docker** - 0.9.0<br>
-**API** - 0.2.1<br>
+**API** - 0.3.0<br>
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.1.0<br>
 **PHPUnit Tests** - 0.0.0<br>
@@ -46,7 +46,7 @@
 - [ ] Artists CRUD
 - [ ] Albums CRUD
 - [ ] Tracks CRUD
-- [ ] Genres CRUD
+- [x] Genres CRUD
 - [ ] Favorites CRUD (tracks, albums or artists)
 - [ ] test dumpy data
 - [ ] code refactoring and optimization

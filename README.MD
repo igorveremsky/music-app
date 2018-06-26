@@ -12,7 +12,7 @@
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.1.0<br>
 **PHPUnit Tests** - 0.0.0<br>
-**DB** - 0.3.1<br>
+**DB** - 0.4.0<br>
 
 ## TODO
 
@@ -69,7 +69,7 @@
 - [ ] user authorization structure
 - [x] artists structure
 - [x] albums structure
-- [ ] tracks structure
+- [x] tracks structure
 - [x] genres structure
 - [ ] favorites structure
 - [ ] elasticsearch

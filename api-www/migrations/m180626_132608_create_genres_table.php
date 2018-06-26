@@ -19,8 +19,8 @@ class m180626_132608_create_genres_table extends Migration
 	    }
 
 	    $this->createTable('{{%genres}}', [
-		    'id' => $this->primaryKey(),
-		    'name' => $this->string(),
+		    'id' => $this->primaryKey(2),
+		    'name' => $this->string()->unique()->notNull(),
 	    ], $tableOptions);
     }
 

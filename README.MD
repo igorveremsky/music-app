@@ -12,7 +12,7 @@
 **Admin panel** - 0.0.0<br>
 **Nginx** - 0.1.0<br>
 **PHPUnit Tests** - 0.0.0<br>
-**DB** - 0.2.0<br>
+**DB** - 0.3.0<br>
 
 ## TODO
 
@@ -67,7 +67,7 @@
 ### DB
 
 - [ ] user authorization structure
-- [ ] artists structure
+- [x] artists structure
 - [x] albums structure
 - [ ] tracks structure
 - [x] genres structure

@@ -164,6 +164,8 @@ class FileActiveRecordBehavior extends Behavior {
 					$this->deleteFile($owner);
 				}
 
+				$owner->{$this->fileIdAttribute} = $file->id;
+
 				$transaction->commit();
 			} catch (\Exception $e) {
 				$transaction->rollBack();

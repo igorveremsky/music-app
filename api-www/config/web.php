@@ -73,6 +73,10 @@ $config = [
 					'class' => 'yii\rest\UrlRule',
 					'controller' => 'v1/artist'
 				],
+				[
+					'class' => 'yii\rest\UrlRule',
+					'controller' => 'v1/track'
+				],
 			],
 		],
 	],

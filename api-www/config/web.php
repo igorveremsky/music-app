@@ -69,6 +69,10 @@ $config = [
 					'class' => 'yii\rest\UrlRule',
 					'controller' => 'v1/album'
 				],
+				[
+					'class' => 'yii\rest\UrlRule',
+					'controller' => 'v1/artist'
+				],
 			],
 		],
 	],

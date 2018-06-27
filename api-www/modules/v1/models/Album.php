@@ -2,6 +2,7 @@
 
 namespace app\modules\v1\models;
 
+use app\modules\v1\behaviors\FileActiveRecordBehavior;
 use app\modules\v1\helpers\FileHelper;
 use Yii;
 use yii\web\ServerErrorHttpException;
@@ -26,6 +27,20 @@ class Album extends \yii\db\ActiveRecord {
 	 */
 	public static function tableName() {
 		return '{{%albums}}';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function behaviors() {
+		return [
+			'fileActiveRecord' => [
+				'class' => FileActiveRecordBehavior::class,
+				'fileSrcAttribute' => 'cover_img_src',
+				'fileIdAttribute' => 'cover_img_id',
+				'fileClass' => Image::class,
+			]
+		];
 	}
 
 	/**
@@ -59,92 +74,15 @@ class Album extends \yii\db\ActiveRecord {
 				'targetClass' => Genre::class,
 				'targetAttribute' => ['genre_id' => 'id']
 			],
-			[
-				['cover_img_id'],
-				'exist',
-				'skipOnError' => true,
-				'targetClass' => Image::class,
-				'targetAttribute' => ['cover_img_id' => 'id']
-			],
-			[['cover_img_src'], 'safe'],
-			[['cover_img_src'], 'string'],
-			[['cover_img_src'], 'existFile'],
 		];
 	}
 
 	/**
-	 * Check is file exist
-	 */
-	public function existFile() {
-		if (!FileHelper::isExistFromSrc($this->cover_img_src)) {
-			$this->addError('cover_img_src', 'Invalid "cover_img_src". File not found.');
-		}
-	}
-
-	/**
-	 * @inheritdoc
-	 *
-	 * @throws \Exception|\Throwable
-	 */
-	public function beforeSave($insert) {
-		if (!parent::beforeSave($insert)) {
-			return false;
-		}
-
-		if (!empty($this->cover_img_src)) {
-			$transaction = Yii::$app->db->beginTransaction();
-
-			try {
-				$image = Image::initializeFromSrc($this->cover_img_src);
-
-				if ($image->isNewRecord && !$image->save()) {
-					$this->addError('cover_img_src', 'Error during save or validate image');
-
-					return false;
-				}
-
-				if (!$insert && $this->cover_img_id !== $image->id) {
-					$image::deleteAll(['id' => $this->cover_img_id]);
-				}
-
-				$this->cover_img_id = $image->id;
-
-				$transaction->commit();
-			} catch (\Exception $e) {
-				$transaction->rollBack();
-				throw $e;
-			} catch (\Throwable $e) {
-				$transaction->rollBack();
-				throw $e;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * @param bool $insert
-	 *
-	 * @return bool
-	 * @throws ServerErrorHttpException
-	 */
-	public function beforeDelete() {
-		if (!parent::beforeDelete()) {
-			return false;
-		}
-
-		if (!empty($this->cover_img_id)) {
-			Image::deleteAll(['id' => $this->cover_img_id]);
-		}
-
-		return true;
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery|Image
+	 * @return mixed
 	 */
 	public function getCoverImg() {
-		return $this->hasOne(Image::class, ['id' => 'cover_img_id']);
+		/* @var $this FileActiveRecordBehavior */
+		return $this->getFile();
 	}
 
 	/**

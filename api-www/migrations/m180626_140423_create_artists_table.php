@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Migration;
+use app\modules\v1\models\Artist;
 
 /**
  * Handles the creation of table `artists`.
@@ -21,7 +22,7 @@ class m180626_140423_create_artists_table extends Migration
 	    $this->createTable('{{%artists}}', [
 		    'id' => $this->primaryKey(),
 		    'name' => $this->string()->unique()->notNull(),
-		    'type' => "ENUM('g', 's') NOT NULL",
+		    'type' => "ENUM('".Artist::TYPE_GROUP."', '".Artist::TYPE_SINGLE."') NOT NULL",
 		    'avatar_img_id' => $this->integer()->unique(),
 	    ], $tableOptions);
 

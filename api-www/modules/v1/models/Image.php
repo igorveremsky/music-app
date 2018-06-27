@@ -2,7 +2,7 @@
 
 namespace app\modules\v1\models;
 
-use app\modules\v1\helpers\FileHelper;
+use app\modules\v1\interfaces\FileInterface;
 use Yii;
 
 /**
@@ -11,7 +11,7 @@ use Yii;
  * @property int $id
  * @property string $file_src
  */
-class Image extends \yii\db\ActiveRecord
+class Image extends \yii\db\ActiveRecord implements FileInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -34,13 +34,9 @@ class Image extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * Initialize class from src
-	 *
-	 * @param $src
-	 *
-	 * @return Image|bool
+	 * @inheritdoc
 	 */
-	public static function initializeFromSrc($src) {
+	public static function initializeFromSrc(string $src) {
 		if (($model = self::find()->where(['file_src' => $src])->limit(1)->one()) === null) {
 			$model = new self();
 			$model->file_src = $src;

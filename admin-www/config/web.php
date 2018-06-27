@@ -1,7 +1,6 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
@@ -35,13 +34,20 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
+	    'hiart' => [
+		    'class' => \app\components\Connection::class,
+		    'requestClass' => \hiqdev\hiart\auto\Request::class,
+		    'baseUri' => 'http://api.gt-music-app.com/v1/',
+		    'auth' => [
+		    	'headerBearer' => '101-token'
+		    ]
+	    ],
     ],
 	'as beforeRequest' => [
 		'class' => 'yii\filters\AccessControl',
@@ -69,6 +75,9 @@ if (YII_ENV_DEV) {
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['*'],
+	    'panels' => [
+		    'restHiart' => ['class' => \hiqdev\hiart\debug\DebugPanel::class],
+	    ],
     ];
 
     $config['bootstrap'][] = 'gii';
@@ -76,6 +85,14 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
 	    'allowedIPs' => ['*'],
+	    'generators' => [ //here
+		    'crud' => [
+			    'class' => 'yii\gii\generators\crud\Generator',
+			    'templates' => [
+				    'adminlte' => '@vendor/dmstr/yii2-adminlte-asset/gii/templates/crud/simple',
+			    ]
+		    ]
+	    ],
     ];
 }
 

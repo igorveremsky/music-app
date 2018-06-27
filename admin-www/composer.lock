@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee5def6edc17139a1c8c8bbd7b0fa571",
+    "content-hash": "012c2357ae17a280842a7b484114752b",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -530,6 +530,82 @@
             "time": "2016-10-24T15:52:54+00:00"
         },
         {
+            "name": "hiqdev/yii2-hiart",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hiqdev/yii2-hiart.git",
+                "reference": "7390245d5a262c743b6e282cad752fed7b3a885a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hiqdev/yii2-hiart/zipball/7390245d5a262c743b6e282cad752fed7b3a885a",
+                "reference": "7390245d5a262c743b6e282cad752fed7b3a885a",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "hiqdev/hidev-hiqdev": "<2.0",
+                "hiqdev/hidev-php": "<2.0",
+                "hiqdev/yii2-hiart-github": "dev-master",
+                "yiisoft/yii2": "dev-master"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "config-plugin": {
+                    "params": "src/config/params.php",
+                    "common": "src/config/common.php"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "hiqdev\\hiart\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Andrii Vasyliev",
+                    "email": "sol@hiqdev.com",
+                    "homepage": "http://hipanel.com/",
+                    "role": "Project lead"
+                },
+                {
+                    "name": "Dmitry Naumenko",
+                    "email": "d.naumenko.a@gmail.com",
+                    "homepage": "http://silverfire.me/",
+                    "role": "Lead backend developer"
+                },
+                {
+                    "name": "Andrey Klochok",
+                    "email": "andreyklochok@gmail.com",
+                    "homepage": "http://hiqdev.com/",
+                    "role": "Lead frontend developer"
+                },
+                {
+                    "name": "Yuriy Myronchuk",
+                    "email": "bladeroot@gmail.com",
+                    "homepage": "http://hiqdev.com/",
+                    "role": "QA Lead"
+                }
+            ],
+            "description": "ActiveRecord for API",
+            "homepage": "https://github.com/hiqdev/yii2-hiart",
+            "keywords": [
+                "activerecord",
+                "api",
+                "extension",
+                "rest",
+                "yii2"
+            ],
+            "time": "2018-05-21T13:42:53+00:00"
+        },
+        {
             "name": "rmrevin/yii2-fontawesome",
             "version": "2.x-dev",
             "source": {
@@ -985,12 +1061,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/base.git",
-                "reference": "b41e442cbf8b7a269b74492a12fb1cf2bd06c3b8"
+                "reference": "a1416d3cd829bf8decb491143b3e8f8e02ee827f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/base/zipball/b41e442cbf8b7a269b74492a12fb1cf2bd06c3b8",
-                "reference": "b41e442cbf8b7a269b74492a12fb1cf2bd06c3b8",
+                "url": "https://api.github.com/repos/Codeception/base/zipball/a1416d3cd829bf8decb491143b3e8f8e02ee827f",
+                "reference": "a1416d3cd829bf8decb491143b3e8f8e02ee827f",
                 "shasum": ""
             },
             "require": {
@@ -1066,7 +1142,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2018-05-26T22:24:57+00:00"
+            "time": "2018-06-26T14:35:46+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -3591,7 +3667,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "hiqdev/yii2-hiart": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

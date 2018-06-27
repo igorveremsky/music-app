@@ -21,6 +21,9 @@ services:
     volumes:
       - ./api-www:/var/www/html/api.gt-music-app.com
       - ./admin-www:/var/www/html/admin.gt-music-app.com
+    extra_hosts:
+      - "api.gt-music-app.com:172.21.0.5"
+      - "admin.gt-music-app.com:172.21.0.5"
     depends_on:
       - db
 

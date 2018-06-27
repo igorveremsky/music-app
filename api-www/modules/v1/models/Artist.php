@@ -3,6 +3,7 @@
 namespace app\modules\v1\models;
 
 use app\modules\v1\behaviors\FileActiveRecordBehavior;
+use app\modules\v1\traits\FavoriteModelTrait;
 use Yii;
 
 /**
@@ -17,6 +18,9 @@ use Yii;
  * @property Image $avatarImg
  */
 class Artist extends \yii\db\ActiveRecord {
+	use FavoriteModelTrait;
+	const FAVORITE_TYPE = 'ar';
+
 	const TYPE_GROUP = 'g';
 	const TYPE_SINGLE = 's';
 
@@ -52,6 +56,10 @@ class Artist extends \yii\db\ActiveRecord {
 		unset($fields['avatar_img_id']);
 
 		$fields['avatar_img'] = 'avatarImg';
+		$fields['is_favorite'] = function ($model) {
+			/* @var $model FavoriteModelTrait */
+			return $model->getIsFavorite();
+		};
 
 		return $fields;
 	}

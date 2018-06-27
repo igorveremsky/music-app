@@ -3,6 +3,7 @@
 namespace app\modules\v1\models;
 
 use app\modules\v1\behaviors\FileActiveRecordBehavior;
+use app\modules\v1\traits\FavoriteModelTrait;
 use voskobovich\linker\LinkerBehavior;
 use Yii;
 
@@ -22,6 +23,9 @@ use Yii;
  * @property Audiofile $audio_file
  */
 class Track extends \yii\db\ActiveRecord {
+	use FavoriteModelTrait;
+	const FAVORITE_TYPE = 'tr';
+
 	public $audio_file_src;
 
 	/**
@@ -42,6 +46,10 @@ class Track extends \yii\db\ActiveRecord {
 		unset($fields['album_id']);
 
 		$fields['album'] = 'album';
+		$fields['is_favorite'] = function ($model) {
+			/* @var $model FavoriteModelTrait */
+			return $model->getIsFavorite();
+		};
 
 		return $fields;
 	}

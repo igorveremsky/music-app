@@ -77,6 +77,10 @@ $config = [
 					'class' => 'yii\rest\UrlRule',
 					'controller' => 'v1/track'
 				],
+				[
+					'class' => 'yii\rest\UrlRule',
+					'controller' => 'v1/favorite'
+				],
 			],
 		],
 	],

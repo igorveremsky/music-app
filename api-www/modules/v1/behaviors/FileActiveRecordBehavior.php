@@ -27,6 +27,8 @@ class FileActiveRecordBehavior extends Behavior {
 	 */
 	protected $validators = []; // track references of appended validators
 
+	private $_file;
+
 	/**
 	 * Get extra validation rules for file
 	 *
@@ -63,6 +65,10 @@ class FileActiveRecordBehavior extends Behavior {
 			throw new InvalidConfigException($this->fileClass.' must extends from ActiveRecord');
 		}
 
+		if (!is_subclass_of($owner, ActiveRecord::class)) {
+			throw new InvalidConfigException($owner::className().' must extends from ActiveRecord');
+		}
+
 		$validators = $owner->validators;
 
 		foreach ($this->getFileValidationRules() as $rule) {
@@ -94,23 +100,39 @@ class FileActiveRecordBehavior extends Behavior {
 	}
 
 	/**
-	 * Check is file exist
-	 */
-	protected function existFile() {
-		if (!FileHelper::isExistFromSrc($this->{$this->fileSrcAttribute})) {
-			$this->owner->addError($this->fileSrcAttribute, 'Invalid "'.$this->fileSrcAttribute.'|. File not found.');
-		}
-	}
-
-	/**
 	 * @inheritdoc
 	 */
 	public function events() {
 		return [
+			ActiveRecord::EVENT_BEFORE_VALIDATE => 'beforeValidate',
 			ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeUpdateOrInsert',
 			ActiveRecord::EVENT_BEFORE_INSERT => 'beforeUpdateOrInsert',
 			ActiveRecord::EVENT_BEFORE_DELETE => 'beforeDelete',
 		];
+	}
+
+	/**
+	 * Before validate handle function
+	 *
+	 * @param $event
+	 *
+	 * @return bool
+	 */
+	public function beforeValidate($event) {
+		/* @var $owner ActiveRecord */
+		$owner = $event->sender;
+
+		if (!empty($this->getFileSrc($owner))) {
+			$file = $this->getPrivateFile();
+
+			if (!$file->validate()) {
+				$owner->addError($this->fileSrcAttribute, 'Error during validate file');
+			}
+
+			$owner->{$this->fileIdAttribute} = $file->id;
+		}
+
+		return true;
 	}
 
 	/**
@@ -130,22 +152,17 @@ class FileActiveRecordBehavior extends Behavior {
 			$transaction = Yii::$app->db->beginTransaction();
 
 			try {
-				/* @var $fileClass FileInterface */
-				/* @var $file ActiveRecord */
-				$fileClass = $this->fileClass;
-				$file = $fileClass::initializeFromSrc($this->getFileSrc($owner));
+				$file = $this->getPrivateFile();
 
-				if ($file->isNewRecord && !$file->save()) {
-					$owner->addError($this->fileSrcAttribute, 'Error during save or validate file');
+				if ($file->isNewRecord && !$file->save(false)) {
+					$owner->addError($this->fileSrcAttribute, 'Error during save file');
 
 					return false;
 				}
 
 				if (!$insert && $this->getFileId($owner) !== $file->id) {
-					$file::deleteAll(['id' => $this->getFileId($owner)]);
+					$this->deleteFile($owner);
 				}
-
-				$owner->{$this->fileIdAttribute} = $file->id;
 
 				$transaction->commit();
 			} catch (\Exception $e) {
@@ -173,10 +190,26 @@ class FileActiveRecordBehavior extends Behavior {
 		$owner = $event->sender;
 
 		if (!empty($this->getFileId($owner))) {
-			Image::deleteAll(['id' => $this->getFileId($owner)]);
+			$this->deleteFile($owner);
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get private file model
+	 *
+	 * @return ActiveRecord
+	 */
+	public function getPrivateFile() : ActiveRecord {
+		if ($this->_file === null) {
+			/* @var $fileClass FileInterface */
+			/* @var $file ActiveRecord */
+			$fileClass = $this->fileClass;
+			$this->_file = $fileClass::initializeFromSrc($this->getFileSrc($this->owner));
+		}
+
+		return $this->_file;
 	}
 
 	/**
@@ -208,5 +241,16 @@ class FileActiveRecordBehavior extends Behavior {
 	 */
 	protected function getFileId(ActiveRecord $owner) {
 		return $owner->{$this->fileIdAttribute};
+	}
+
+	/**
+	 * Delete file for owner model
+	 *
+	 * @param ActiveRecord $owner
+	 *
+	 * @return int
+	 */
+	protected function deleteFile(ActiveRecord $owner) {
+		return Image::deleteAll([$this->fileClassRelativeAttribute => $this->getFileId($owner)]);;
 	}
 }

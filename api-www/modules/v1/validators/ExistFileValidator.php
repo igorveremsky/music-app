@@ -12,7 +12,7 @@ class ExistFileValidator extends Validator {
 	 */
 	public function validateAttribute($model, $attribute) {
 		if (!FileHelper::isExistFromSrc($model->{$attribute})) {
-			$this->owner->addError($attribute, 'Invalid "'.$attribute.'|. File not found.');
+			$model->addError($attribute, 'Invalid "'.$attribute.'". File not found.');
 		}
 	}
 }

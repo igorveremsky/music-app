@@ -4,12 +4,13 @@
 
 **API** - http://api.gt-music-app.com:8080/<br>
 **Admin panel** - http://admin.gt-music-app.com:8080/<br>
+**phpMyAdmin** - http://localhost:8081/<br>
 
 ## Versions
 
 **Docker** - 0.9.0<br>
 **API** - 0.7.0<br>
-**Admin panel** - 0.2.0<br>
+**Admin panel** - 0.3.0<br>
 **Nginx** - 0.2.0<br>
 **PHPUnit Tests** - 0.0.0<br>
 **DB** - 0.4.1<br>
@@ -55,7 +56,7 @@
 
 - [x] General configurations
 - [x] packages
-- [ ] RBAC (all actions accessible only for login user)
+- [x] RBAC (all actions accessible only for login user)
 - [ ] Artists CRUD
 - [ ] Albums CRUD
 - [ ] Tracks CRUD

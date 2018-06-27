@@ -8,16 +8,15 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="genre-form">
+<div class="genre-form box box-primary">
+	<?php $form = ActiveForm::begin(); ?>
+    <div class="box-body table-responsive">
 
-    <?php $form = ActiveForm::begin(); ?>
+		<?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="box-footer">
+		<?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+    </div>
+	<?php ActiveForm::end(); ?>
 </div>

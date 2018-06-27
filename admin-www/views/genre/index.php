@@ -9,22 +9,22 @@ use yii\grid\GridView;
 $this->title = 'Genres';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="genre-index">
+<div class="genre-index box box-primary">
+    <div class="box-header with-border">
+		<?= Html::a('Create Genre', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+    </div>
+    <div class="box-body table-responsive no-padding">
+		<?= GridView::widget([
+			'dataProvider' => $dataProvider,
+			'layout' => "{items}\n{summary}\n{pager}",
+			'columns' => [
+				['class' => 'yii\grid\SerialColumn'],
 
-    <h1><?= Html::encode($this->title) ?></h1>
+				'id',
+				'name',
 
-    <p>
-        <?= Html::a('Create Genre', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'name',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+				['class' => 'yii\grid\ActionColumn'],
+			],
+		]); ?>
+    </div>
 </div>

@@ -2,8 +2,8 @@
 
 ## Links
 
-**API** - http://api.gt-music-app.com:8080/<br>
-**Admin panel** - http://admin.gt-music-app.com:8080/<br>
+**API** - http://api.gt-music-app.com/<br>
+**Admin panel** - http://admin.gt-music-app.com/<br>
 **phpMyAdmin** - http://localhost:8081/<br>
 
 ## Versions

@@ -2,7 +2,7 @@
 
 namespace app\modules\v1\models;
 
-use app\modules\v1\traits\FavoriteModelTrait;
+use app\modules\v1\behaviors\FavoriteModelBehavior;
 use app\modules\v1\behaviors\FileActiveRecordBehavior;
 use Yii;
 
@@ -19,7 +19,6 @@ use Yii;
  * @property string $genre
  */
 class Album extends \yii\db\ActiveRecord {
-	use FavoriteModelTrait;
 	const FAVORITE_TYPE = 'al';
 
 	public $cover_img_src;
@@ -41,7 +40,11 @@ class Album extends \yii\db\ActiveRecord {
 				'fileSrcAttribute' => 'cover_img_src',
 				'fileIdAttribute' => 'cover_img_id',
 				'fileClass' => Image::class,
-			]
+			],
+			'favoriteModel' => [
+				'class' => FavoriteModelBehavior::class,
+				'favoriteType' => self::FAVORITE_TYPE
+			],
 		];
 	}
 
@@ -56,7 +59,7 @@ class Album extends \yii\db\ActiveRecord {
 		$fields['cover_img'] = 'coverImg';
 		$fields['genre'] = 'genre';
 		$fields['is_favorite'] = function ($model) {
-			/* @var $model FavoriteModelTrait */
+			/* @var $model FavoriteModelBehavior */
 			return $model->getIsFavorite();
 		};
 

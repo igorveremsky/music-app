@@ -2,8 +2,8 @@
 
 namespace app\modules\v1\models;
 
+use app\modules\v1\behaviors\FavoriteModelBehavior;
 use app\modules\v1\behaviors\FileActiveRecordBehavior;
-use app\modules\v1\traits\FavoriteModelTrait;
 use Yii;
 
 /**
@@ -18,7 +18,6 @@ use Yii;
  * @property Image $avatarImg
  */
 class Artist extends \yii\db\ActiveRecord {
-	use FavoriteModelTrait;
 	const FAVORITE_TYPE = 'ar';
 
 	const TYPE_GROUP = 'g';
@@ -43,7 +42,11 @@ class Artist extends \yii\db\ActiveRecord {
 				'fileSrcAttribute' => 'avatar_img_src',
 				'fileIdAttribute' => 'avatar_img_id',
 				'fileClass' => Image::class,
-			]
+			],
+			'favoriteModel' => [
+				'class' => FavoriteModelBehavior::class,
+				'favoriteType' => self::FAVORITE_TYPE
+			],
 		];
 	}
 
@@ -57,7 +60,7 @@ class Artist extends \yii\db\ActiveRecord {
 
 		$fields['avatar_img'] = 'avatarImg';
 		$fields['is_favorite'] = function ($model) {
-			/* @var $model FavoriteModelTrait */
+			/* @var $model FavoriteModelBehavior */
 			return $model->getIsFavorite();
 		};
 

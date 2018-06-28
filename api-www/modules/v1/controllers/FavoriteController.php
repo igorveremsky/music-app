@@ -40,7 +40,7 @@ class FavoriteController extends DefaultController {
 
 						$query->where($where);
 
-						if ($query->count() == 1) {
+						if ($query->count() == 1 && count($where) === 3) {
 							return $query->one();
 						}
 

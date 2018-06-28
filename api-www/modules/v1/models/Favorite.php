@@ -37,6 +37,19 @@ class Favorite extends \yii\db\ActiveRecord {
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function fields() {
+		$fields = parent::fields();
+
+		unset($fields['model_id'],$fields['user_id']);
+
+		$fields['model'] = 'model';
+
+		return $fields;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function rules() {
@@ -69,7 +82,7 @@ class Favorite extends \yii\db\ActiveRecord {
 	 * @param $attributes
 	 */
 	public function checkModelExist($attributes) {
-		$modelClass = ArrayHelper::getValue($this->getModelTypeClassOptions(), $this->model_type);
+		$modelClass = $this->getModelClass();
 
 		if (!empty($modelClass)) {
 			/* @var $modelClass ActiveRecord */
@@ -77,6 +90,30 @@ class Favorite extends \yii\db\ActiveRecord {
 				$this->addError($attributes, 'Model not exist');
 			};
 		}
+	}
+
+	/**
+	 * Check is model with such type and id exist
+	 *
+	 * @return null
+	 */
+	public function getModel() {
+		$modelClass = $this->getModelClass();
+
+		if (!empty($modelClass)) {
+			return $modelClass::find()->where(['id' => $this->model_id])->one();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get favorite model class name
+	 *
+	 * @return ActiveRecord|null
+	 */
+	protected function getModelClass() {
+		return ArrayHelper::getValue($this->getModelTypeClassOptions(), $this->model_type);
 	}
 
 	/**

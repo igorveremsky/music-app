@@ -25,6 +25,15 @@ class FileActiveRecordBehavior extends Behavior {
 	public $fileClassRelativeAttribute = 'id';
 
 	/**
+	 * @var boolean If `true` row at db will deleted on updated parent record
+	 */
+	public $deleteOnUpdate = true;
+	/**
+	 * @var boolean If `true` row at db will deleted on deleted parent record
+	 */
+	public $deleteOnDelete = true;
+
+	/**
 	 * @var \yii\validators\Validator[]
 	 */
 	protected $validators = []; // track references of appended validators
@@ -109,7 +118,7 @@ class FileActiveRecordBehavior extends Behavior {
 			ActiveRecord::EVENT_BEFORE_VALIDATE => 'beforeValidate',
 			ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeUpdateOrInsert',
 			ActiveRecord::EVENT_BEFORE_INSERT => 'beforeUpdateOrInsert',
-			ActiveRecord::EVENT_BEFORE_DELETE => 'beforeDelete',
+			ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
 		];
 	}
 
@@ -162,8 +171,8 @@ class FileActiveRecordBehavior extends Behavior {
 					return false;
 				}
 
-				if (!$insert && $this->getFileId($owner) !== $file->id) {
-					$this->deleteFile($owner);
+				if ($this->deleteOnUpdate && !$insert && $this->getFileId($owner) !== $file->id) {
+					$this->deleteFile($owner, true);
 				}
 
 				$owner->{$this->fileIdAttribute} = $file->id;
@@ -182,18 +191,18 @@ class FileActiveRecordBehavior extends Behavior {
 	}
 
 	/**
-	 * Before delete handle function
+	 * After delete handle function
 	 *
 	 * @param $event
 	 *
 	 * @return bool
 	 * @throws \Throwable
 	 */
-	public function beforeDelete($event) {
+	public function afterDelete($event) {
 		/* @var $owner ActiveRecord */
 		$owner = $event->sender;
 
-		if (!empty($this->getFileId($owner))) {
+		if ($this->deleteOnDelete && !empty($this->getFileId($owner))) {
 			$this->deleteFile($owner);
 		}
 
@@ -240,21 +249,23 @@ class FileActiveRecordBehavior extends Behavior {
 	 * Get file id from owner model
 	 *
 	 * @param ActiveRecord $owner
+	 * @param bool $old
 	 *
 	 * @return mixed
 	 */
-	protected function getFileId(ActiveRecord $owner) {
-		return $owner->{$this->fileIdAttribute};
+	protected function getFileId(ActiveRecord $owner, $old = false) {
+		return ($old === true) ? $owner->getOldAttribute($this->fileIdAttribute) : $owner->{$this->fileIdAttribute};
 	}
 
 	/**
 	 * Delete file for owner model
 	 *
 	 * @param ActiveRecord $owner
+	 * @param bool $old
 	 *
 	 * @return int
 	 */
-	protected function deleteFile(ActiveRecord $owner) {
-		return Image::deleteAll([$this->fileClassRelativeAttribute => $this->getFileId($owner)]);;
+	protected function deleteFile(ActiveRecord $owner, $old = false) {
+		return Image::deleteAll([$this->fileClassRelativeAttribute => $this->getFileId($owner, $old)]);;
 	}
 }

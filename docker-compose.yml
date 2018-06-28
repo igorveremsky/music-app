@@ -5,7 +5,7 @@ services:
     container_name: app-nginx
     image: 'nginx:1.15'
     ports:
-      - '8080:80'
+      - '80:80'
     volumes:
       - ./docker/nginx/configs/site.conf:/etc/nginx/conf.d/site.conf
       - ./docker/nginx/logs/:/var/log/nginx/

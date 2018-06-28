@@ -8,7 +8,7 @@
 
 ## Versions
 
-**Docker** - 0.9.0<br>
+**Docker** - 0.9.1<br>
 **API** - 0.7.1<br>
 **Admin panel** - 0.5.0<br>
 **Nginx** - 0.2.0<br>

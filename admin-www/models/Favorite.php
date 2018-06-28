@@ -10,12 +10,12 @@ use yii\helpers\ArrayHelper;
  * Class Artist
  * @package app\models
  *
- * @property int $id
- * @property int $user_id
  * @property string $model_type
- * @property int $model_id
+ * @property array $model
  */
 class Favorite extends ActiveRecord {
+	public $model;
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -25,33 +25,16 @@ class Favorite extends ActiveRecord {
 			[['model_type', 'model_id'], 'required'],
 			['model_type', 'in', 'range' => array_keys($this->getModelTypeClassOptions())],
 			[['user_id', 'model_id'], 'integer'],
-			[['model_type', 'model_id'], 'checkModelExist'],
 		];
 	}
 
 	/**
-	 * @inheritdoc
-	 */
-	public function beforeValidate() {
-		$this->user_id = Yii::$app->getUser()->getId();
-
-		return parent::beforeValidate();
-	}
-
-	/**
-	 * Check is model with such type and id exist
+	 * Get favorite model class name
 	 *
-	 * @param $attributes
+	 * @return ActiveRecord|null
 	 */
-	public function checkModelExist($attributes) {
-		$modelClass = ArrayHelper::getValue($this->getModelTypeClassOptions(), $this->model_type);
-
-		if (!empty($modelClass)) {
-			/* @var $modelClass ActiveRecord */
-			if (!$modelClass::find()->where(['id' => $this->model_id])->exists()) {
-				$this->addError($attributes, 'Model not exist');
-			};
-		}
+	protected function getModelClass() {
+		return ArrayHelper::getValue($this->getModelTypeClassOptions(), $this->model_type);
 	}
 
 	/**
@@ -64,6 +47,19 @@ class Favorite extends ActiveRecord {
 			Album::FAVORITE_TYPE => Album::class,
 			Artist::FAVORITE_TYPE => Artist::class,
 			Track::FAVORITE_TYPE => Track::class,
+		];
+	}
+
+	/**
+	 * Get favorite model type label options
+	 *
+	 * @return array
+	 */
+	public static function getModelTypeLabelOptions() {
+		return [
+			Album::FAVORITE_TYPE => 'Album',
+			Artist::FAVORITE_TYPE => 'Artist',
+			Track::FAVORITE_TYPE => 'Track',
 		];
 	}
 }

@@ -35,6 +35,7 @@
 	                ['label' => 'Albums', 'icon' => 'star', 'url' => ['/album']],
 	                ['label' => 'Artists', 'icon' => 'star', 'url' => ['/artist']],
 	                ['label' => 'Tracks', 'icon' => 'star', 'url' => ['/track']],
+	                ['label' => 'Favorites', 'icon' => 'star', 'url' => ['/favorite']],
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']]

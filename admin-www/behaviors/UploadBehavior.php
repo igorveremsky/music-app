@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Behavior;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
@@ -50,7 +51,7 @@ class UploadBehavior extends Behavior
 	/**
 	 * @var array the scenarios in which the behavior will be triggered
 	 */
-	public $scenarios = [];
+	public $scenarios = [ActiveRecord::SCENARIO_DEFAULT];
 	/**
 	 * @var string the base path or path alias to the directory in which to save files.
 	 */
@@ -99,10 +100,10 @@ class UploadBehavior extends Behavior
 			throw new InvalidConfigException('The "attribute" property must be set.');
 		}
 		if ($this->path === null) {
-			throw new InvalidConfigException('The "path" property must be set.');
+			$this->path = Yii::getAlias('@webroot/upload/images/');
 		}
 		if ($this->url === null) {
-			throw new InvalidConfigException('The "url" property must be set.');
+			$this->url = Yii::getAlias('@web/upload/images/');
 		}
 	}
 

@@ -19,10 +19,21 @@ use yii\helpers\Url;
  * @property int $year
  * @property string $records_name
  */
-class Album extends ActiveRecord
-{
+class Album extends ActiveRecord {
 	public $cover_img;
 	public $genre;
+
+	/**
+	 * @inheritdoc
+	 */
+	function behaviors() {
+		return [
+			[
+				'class' => UploadBehavior::class,
+				'attribute' => 'cover_img_src',
+			],
+		];
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -38,6 +49,9 @@ class Album extends ActiveRecord
 		];
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function afterFind() {
 		parent::afterFind();
 
@@ -50,33 +64,5 @@ class Album extends ActiveRecord
 			$this->setOldAttribute('cover_img_src', $this->cover_img['file_src']);
 			$this->cover_img_src = $this->cover_img['file_src'];
 		}
-	}
-
-	public function beforeSave($insert) {
-		if (!parent::beforeSave($insert)) {
-			return false;
-		}
-/*
-		if (!empty($this->cover_img_src)) {
-			$this->cover_img_src = str_replace(':8080', '', Url::to('@web/upload/images/'.$this->cover_img_src, true));
-		}*/
-
-		return true;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	function behaviors()
-	{
-		return [
-			[
-				'class' => UploadBehavior::class,
-				'attribute' => 'cover_img_src',
-				'scenarios' => [ActiveRecord::SCENARIO_DEFAULT],
-				'path' => '@webroot/upload/images/',
-				'url' => '@web/upload/images/',
-			],
-		];
 	}
 }

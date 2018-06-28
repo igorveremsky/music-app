@@ -10,7 +10,7 @@
 
 **Docker** - 0.9.1<br>
 **API** - 0.7.2<br>
-**Admin panel** - 0.5.0<br>
+**Admin panel** - 0.6.0<br>
 **Nginx** - 0.2.0<br>
 **PHPUnit Tests** - 0.0.0<br>
 **DB** - 0.4.1<br>
@@ -57,7 +57,7 @@
 - [x] General configurations
 - [x] packages
 - [x] RBAC (all actions accessible only for login user)
-- [ ] Artists CRUD
+- [x] Artists CRUD
 - [x] Albums CRUD
 - [ ] Tracks CRUD
 - [x] Genres CRUD

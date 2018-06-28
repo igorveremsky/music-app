@@ -31,8 +31,9 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
 	                ['label' => 'Information', 'options' => ['class' => 'header']],
-	                ['label' => 'Genres', 'icon' => 'file-code-o', 'url' => ['/genre']],
-	                ['label' => 'Albums', 'icon' => 'file-code-o', 'url' => ['/album']],
+	                ['label' => 'Genres', 'icon' => 'star', 'url' => ['/genre']],
+	                ['label' => 'Albums', 'icon' => 'star', 'url' => ['/album']],
+	                ['label' => 'Artists', 'icon' => 'star', 'url' => ['/artist']],
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']]

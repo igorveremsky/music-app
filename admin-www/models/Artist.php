@@ -17,10 +17,13 @@ use yii\helpers\Url;
  * @property array $avatar_img
  */
 class Artist extends ActiveRecord {
+	const FAVORITE_TYPE = 'ar';
+
 	const TYPE_GROUP = 'g';
 	const TYPE_SINGLE = 's';
 
 	public $avatar_img;
+	public $is_favorite;
 
 	/**
 	 * @inheritdoc

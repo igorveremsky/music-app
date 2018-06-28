@@ -30,6 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		            },
 	            ],
 
+	            [
+		            'class' => \app\components\FavoriteColumn::class
+	            ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>

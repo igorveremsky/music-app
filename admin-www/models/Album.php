@@ -20,8 +20,11 @@ use yii\helpers\Url;
  * @property string $records_name
  */
 class Album extends ActiveRecord {
+	const FAVORITE_TYPE = 'al';
+
 	public $cover_img;
 	public $genre;
+	public $is_favorite;
 
 	/**
 	 * @inheritdoc

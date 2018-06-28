@@ -44,9 +44,6 @@ $config = [
 		    'class' => \app\components\Connection::class,
 		    'requestClass' => \hiqdev\hiart\auto\Request::class,
 		    'baseUri' => 'http://api.gt-music-app.com/v1/',
-		    'auth' => [
-		    	'headerBearer' => '101-token'
-		    ]
 	    ],
     ],
 	'as beforeRequest' => [

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Favorite;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use app\models\Track;
 

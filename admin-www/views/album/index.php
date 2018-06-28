@@ -27,6 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	            'year',
                 'records_name',
 
+	            [
+		            'class' => \app\components\FavoriteColumn::class
+	            ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>

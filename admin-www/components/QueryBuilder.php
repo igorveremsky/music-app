@@ -23,13 +23,7 @@ class QueryBuilder extends \hiqdev\hiart\AbstractQueryBuilder {
 	 * @param Query $query
 	 */
 	public function buildAuth(Query $query) {
-		$auth = $this->db->getAuth();
-		if (isset($auth['headerToken'])) {
-			$this->authHeaders['Authorization'] = 'token ' . $auth['headerToken'];
-		}
-		if (isset($auth['headerBearer'])) {
-			$this->authHeaders['Authorization'] = 'Bearer ' . $auth['headerBearer'];
-		}
+		$this->authHeaders['Authorization'] = 'Bearer ' . \Yii::$app->user->identity->accessToken;
 	}
 
 	public function buildMethod(Query $query) {

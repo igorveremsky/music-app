@@ -25,9 +25,12 @@ use Yii;
  * @property array $album
  */
 class Track extends ActiveRecord {
+	const FAVORITE_TYPE = 'tr';
+
 	public $album;
 	public $artists;
 	public $audiofile;
+	public $is_favorite;
 
 	/**
 	 * {@inheritdoc}

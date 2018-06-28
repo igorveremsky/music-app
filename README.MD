@@ -10,7 +10,7 @@
 
 **Docker** - 0.9.1<br>
 **API** - 0.7.4<br>
-**Admin panel** - 0.7.0<br>
+**Admin panel** - 0.8.0<br>
 **Nginx** - 0.2.0<br>
 **PHPUnit Tests** - 0.0.0<br>
 **DB** - 0.4.1<br>
@@ -62,7 +62,7 @@
 - [x] Tracks CRUD
 - [x] Genres CRUD
 - [ ] Favorites CRUD (tracks, albums or artists)
-- [ ] Make favorite track, album or artist action
+- [x] Make favorite track, album or artist action
 - [ ] code refactoring and optimization
 
 ### DB

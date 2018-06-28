@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Favorite;
 use hiqdev\hiart\ActiveDataProvider;
 use hiqdev\hiart\ActiveRecord;
 use hiqdev\hiart\ResponseErrorException;
@@ -38,9 +39,59 @@ class ActiveController extends Controller {
 				'class' => VerbFilter::className(),
 				'actions' => [
 					'delete' => ['POST'],
+					'favorite' => ['POST'],
+					'unfavorite' => ['POST'],
 				],
 			],
 		];
+	}
+
+	/**
+	 * Make model favorite
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 * @throws ResponseErrorException
+	 */
+	public function actionFavorite($id) {
+		$modelClass = $this->modelClass;
+		if (defined("$modelClass::FAVORITE_TYPE")) {
+			try {
+				$model = new Favorite();
+				$model->model_id = $id;
+				$model->model_type = $modelClass::FAVORITE_TYPE;
+
+				$model->save();
+			} catch (ResponseErrorException $e) {
+				throw $e;
+			}
+		}
+
+		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Make model unfavorite
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 * @throws ResponseErrorException
+	 */
+	public function actionUnfavorite($id) {
+		$modelClass = $this->modelClass;
+		if (defined("$modelClass::FAVORITE_TYPE")) {
+			try {
+				$model = Favorite::find()->where(['model_id' => $id, 'model_type' => $modelClass::FAVORITE_TYPE])->one();
+
+				$model->delete();
+			} catch (ResponseErrorException $e) {
+				throw $e;
+			}
+		}
+
+		return $this->redirect(['index']);
 	}
 
 	/**

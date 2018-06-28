@@ -17,6 +17,8 @@ use Yii;
  * @package app\modules\v1\behaviors
  */
 class FileActiveRecordBehavior extends Behavior {
+	const SCENARIO_CHECK_FILE_EXIST = 'checkFileExist';
+
 	public $fileSrcAttribute = 'file_src';
 	public $fileIdAttribute = 'file_id';
 	public $fileClass = Image::class;
@@ -38,7 +40,7 @@ class FileActiveRecordBehavior extends Behavior {
 		return [
 			[$this->fileSrcAttribute, 'safe'],
 			[$this->fileSrcAttribute, 'string'],
-			[$this->fileSrcAttribute, ExistFileValidator::class],
+			[$this->fileSrcAttribute, ExistFileValidator::class, 'on' => self::SCENARIO_CHECK_FILE_EXIST],
 			[
 				$this->fileIdAttribute,
 				'exist',

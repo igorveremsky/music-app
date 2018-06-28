@@ -45,7 +45,7 @@ class Album extends ActiveRecord {
 			['year', 'integer', 'max' => date('Y')],
 			[['genre_id', 'year'], 'integer'],
 			[['name', 'records_name'], 'string', 'max' => 255],
-			['cover_img_src', 'file'],
+			['cover_img_src', 'file', 'extensions' => ['jpg', 'png', 'gif']],
 		];
 	}
 

@@ -52,6 +52,7 @@ class ActiveController extends Controller {
 		return $this->render('index', [
 			'dataProvider' => new ActiveDataProvider([
 				'query' => $modelClass::find(),
+				'sort' => false
 			]),
 		]);
 	}
@@ -92,6 +93,8 @@ class ActiveController extends Controller {
 					return $this->render('create', [
 						'model' => $model,
 					]);
+				} else {
+					throw $e;
 				}
 			}
 
@@ -127,6 +130,8 @@ class ActiveController extends Controller {
 					return $this->render('update', [
 						'model' => $model,
 					]);
+				} else {
+					throw $e;
 				}
 			}
 

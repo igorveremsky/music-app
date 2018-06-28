@@ -44,7 +44,7 @@ class Artist extends ActiveRecord {
 			[['type'], 'string'],
 			[['type'], 'in', 'range' => [self::TYPE_GROUP, self::TYPE_SINGLE]],
 			[['name'], 'string', 'max' => 255],
-			['avatar_img_src', 'file'],
+			['avatar_img_src', 'file', 'extensions' => ['jpg', 'png', 'gif']],
 		];
 	}
 

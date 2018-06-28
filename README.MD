@@ -9,7 +9,7 @@
 ## Versions
 
 **Docker** - 0.9.1<br>
-**API** - 0.7.2<br>
+**API** - 0.7.3<br>
 **Admin panel** - 0.6.0<br>
 **Nginx** - 0.2.0<br>
 **PHPUnit Tests** - 0.0.0<br>

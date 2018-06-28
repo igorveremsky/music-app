@@ -43,8 +43,9 @@ class Track extends \yii\db\ActiveRecord {
 
 		$fields['artists'] = 'artists';
 
-		unset($fields['album_id']);
+		unset($fields['album_id'], $fields['file_id']);
 
+		$fields['audiofile'] = 'audiofile';
 		$fields['album'] = 'album';
 		$fields['is_favorite'] = function ($model) {
 			/* @var $model FavoriteModelTrait */

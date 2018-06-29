@@ -12,7 +12,7 @@
 **API** - 0.7.5<br>
 **Admin panel** - 0.9.0<br>
 **Nginx** - 0.2.0<br>
-**PHPUnit Tests** - 0.0.0<br>
+**PHPUnit Tests** - 0.1.0<br>
 **DB** - 0.4.1<br>
 
 ## TODO
@@ -82,7 +82,7 @@
 - [ ] artists cud
 - [ ] albums cud
 - [ ] tracks cud
-- [ ] genres cud
+- [x] genres cud
 - [ ] favorites cud
 
 ### General

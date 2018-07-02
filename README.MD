@@ -12,7 +12,7 @@
 **API** - 0.7.5<br>
 **Admin panel** - 0.9.0<br>
 **Nginx** - 0.2.0<br>
-**PHPUnit Tests** - 0.2.0<br>
+**PHPUnit Tests** - 0.3.0<br>
 **DB** - 0.4.1<br>
 
 ## TODO
@@ -80,7 +80,7 @@
 
 - [ ] admin panel access
 - [x] artists cud
-- [ ] albums cud
+- [x] albums cud
 - [ ] tracks cud
 - [x] genres cud
 - [ ] favorites cud

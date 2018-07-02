@@ -3,33 +3,36 @@
 namespace tests\models;
 
 use app\modules\v1\behaviors\FileActiveRecordBehavior;
-use app\modules\v1\models\Artist;
+use app\modules\v1\models\Album;
 use app\modules\v1\models\Image;
 use yii\db\ActiveRecord;
 
 /**
- * Class ArtistTest
+ * Class AlbumsTest
  * @package tests\models
  *
  * @property \UnitTester $tester
  * @property ActiveRecord $modelClass
  */
-class ArtistTest extends \Codeception\Test\Unit {
-	protected $modelClass = Artist::class;
+class AlbumsTest extends \Codeception\Test\Unit {
+	protected $modelClass = Album::class;
 	protected $initData = [
-		'name' => 'artist',
-		'type' => 's',
-		'avatar_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/chernigivske-website-avatars-01v-675x645.jpg'
+		'name' => 'album',
+		'year' => 2018,
+		'cover_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/chernigivske-website-avatars-01v-675x645.jpg',
+		'records_name' => 'records name'
 	];
 	protected $forSaveData = [
-		'name' => 'new artist',
-		'type' => 's',
-		'avatar_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-03-updated.jpg'
+		'name' => 'new album',
+		'year' => 2018,
+		'cover_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-03-updated.jpg',
+		'records_name' => 'new records name'
 	];
 	protected $forUpdateData = [
-		'name' => 'update artist',
-		'type' => 'g',
-		'avatar_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-04-updated.jpg'
+		'name' => 'update album',
+		'year' => 2017,
+		'cover_img_src' => 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-04-updated.jpg',
+		'records_name' => 'update records name'
 	];
 
 	protected $id;
@@ -40,36 +43,42 @@ class ArtistTest extends \Codeception\Test\Unit {
 	}
 
 	public function testValidation() {
-		/* @var $model Artist */
+		/* @var $model Album */
 		$model = new $this->modelClass;
 
 		$model->name = null;
 		$this->tester->assertFalse($model->validate('name'));
 
-		$model->name = 'artist';
+		$model->name = 'album';
 		$this->tester->assertFalse($model->validate('name'));
 
 		$model->name = 'test';
 		$this->tester->assertTrue($model->validate('name'));
 
-		$model->type = null;
-		$this->tester->assertFalse($model->validate('type'));
+		$model->genre_id = 'test';
+		$this->tester->assertFalse($model->validate('genre_id'));
 
-		$model->type = Artist::TYPE_GROUP;
-		$this->tester->assertTrue($model->validate('type'));
+		$model->year = 'test';
+		$this->tester->assertFalse($model->validate('year'));
 
-		$model->type = Artist::TYPE_SINGLE;
-		$this->tester->assertTrue($model->validate('type'));
+		$model->year = 2018;
+		$this->tester->assertTrue($model->validate('year'));
 
-		$model->avatar_img_src = 'test';
-		$this->tester->assertTrue($model->validate('avatar_img_src'));
+		$model->cover_img_src = 'test';
+		$this->tester->assertTrue($model->validate('cover_img_src'));
 
 		$model->setScenario(FileActiveRecordBehavior::SCENARIO_CHECK_FILE_EXIST);
-		$model->avatar_img_src = 'test';
-		$this->tester->assertFalse($model->validate('avatar_img_src'));
+		$model->cover_img_src = 'test';
+		$this->tester->assertFalse($model->validate('cover_img_src'));
 
-		$model->avatar_img_src = 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-05-updated-1350x1290.jpg';
-		$this->tester->assertTrue($model->validate('avatar_img_src'));
+		$model->cover_img_src = 'http://reynoldsandreyner.com/wp-content/uploads/the-book-2018-05-updated-1350x1290.jpg';
+		$this->tester->assertTrue($model->validate('cover_img_src'));
+
+		$model->records_name = null;
+		$this->tester->assertFalse($model->validate('records_name'));
+
+		$model->records_name = 'test';
+		$this->tester->assertTrue($model->validate('records_name'));
 	}
 
 	/**
@@ -80,11 +89,11 @@ class ArtistTest extends \Codeception\Test\Unit {
 		$model = new $this->modelClass();
 		$this->setModelAttributes($model, $this->forSaveData);
 		$model->save(false);
-		$imageSrc = $this->forSaveData['avatar_img_src'];
+		$imageSrc = $this->forSaveData['cover_img_src'];
 		$this->tester->seeRecord(Image::class, ['file_src' => $imageSrc]);
 		$image = $this->tester->grabRecord(Image::class, ['file_src' => $imageSrc]);
-		$savedData = array_merge(['avatar_img_id' => $image['id']], $this->forSaveData);
-		unset($savedData['avatar_img_src']);
+		$savedData = array_merge(['cover_img_id' => $image['id']], $this->forSaveData);
+		unset($savedData['cover_img_src']);
 		$this->tester->seeRecord($this->modelClass, $savedData);
 	}
 
@@ -94,14 +103,14 @@ class ArtistTest extends \Codeception\Test\Unit {
 		$this->setModelAttributes($model, $this->forUpdateData);
 		$model->save();
 		$updatedData = array_merge(['id' => $this->id], $this->forUpdateData);
-		$imageSrc = $updatedData['avatar_img_src'];
-		unset($updatedData['avatar_img_src']);
+		$imageSrc = $updatedData['cover_img_src'];
+		unset($updatedData['cover_img_src']);
 		$this->tester->seeRecord(Image::class, ['file_src' => $imageSrc]);
 		$image = $this->tester->grabRecord(Image::class, ['file_src' => $imageSrc]);
-		$this->tester->dontSeeRecord(Image::class, ['file_src' => $this->initData['avatar_img_src']]);
-		$updatedData['avatar_img_id'] = $image['id'];
+		$this->tester->dontSeeRecord(Image::class, ['file_src' => $this->initData['cover_img_src']]);
+		$updatedData['cover_img_id'] = $image['id'];
 		$this->tester->seeRecord($this->modelClass, $updatedData);
-		unset($this->initData['avatar_img_src']);
+		unset($this->initData['cover_img_src']);
 		$this->tester->dontSeeRecord($this->modelClass, $this->initData);
 	}
 
@@ -110,8 +119,8 @@ class ArtistTest extends \Codeception\Test\Unit {
 		$this->tester->assertNotNull($model);
 		$model->delete();
 		$deletedData = array_merge(['id' => $this->id], $this->forUpdateData);
-		$this->tester->dontSeeRecord(Image::class, ['file_src' => $deletedData['avatar_img_src']]);
-		unset($deletedData['avatar_img_src']);
+		$this->tester->dontSeeRecord(Image::class, ['file_src' => $deletedData['cover_img_src']]);
+		unset($deletedData['cover_img_src']);
 		$this->tester->dontSeeRecord($this->modelClass, $deletedData);
 	}
 

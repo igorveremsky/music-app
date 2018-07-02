@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 
 /**
  * Class GenreTest
- * @package tests\api\models
+ * @package tests\models
  *
  * @property \UnitTester $tester
  * @property ActiveRecord $modelClass

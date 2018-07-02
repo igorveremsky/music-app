@@ -18,8 +18,10 @@ class FavoriteController extends DefaultController {
 	 */
 	public function actions()
 	{
+		$actions = parent::actions();
+		unset($actions['update']);
 		return array_merge(
-			parent::actions(),
+			$actions,
 			[
 				'index' => [
 					'class' => 'yii\rest\IndexAction',

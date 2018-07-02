@@ -30,7 +30,7 @@ return [
 		    'enableSession' => false,
 	    ],
         'request' => [
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'test',
         ],
     ],
     'params' => $params,

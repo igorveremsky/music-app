@@ -63,7 +63,7 @@ class Favorite extends \yii\db\ActiveRecord {
 				'unique',
 				'targetAttribute' => ['user_id', 'model_type', 'model_id']
 			],
-			[['model_type', 'model_id'], 'checkModelExist'],
+			[['model_id'], 'checkModelExist'],
 		];
 	}
 

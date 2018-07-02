@@ -12,7 +12,7 @@
 **API** - 0.7.6<br>
 **Admin panel** - 0.9.0<br>
 **Nginx** - 0.2.0<br>
-**PHPUnit Tests** - 0.5.0<br>
+**PHPUnit Tests** - 0.5.1<br>
 **DB** - 0.4.2<br>
 
 ## TODO

@@ -116,7 +116,7 @@ class TrackTest extends \Codeception\Test\Unit {
 		$model = $this->modelClass::findOne($this->id);
 		$this->tester->assertNotNull($model);
 		$model->delete();
-		$deletedData = array_merge(['id' => $this->id], $this->forUpdateData);
+		$deletedData = array_merge(['id' => $this->id], $this->initData);
 		$this->tester->dontSeeRecord(Audiofile::class, ['file_src' => $deletedData['audio_file_src']]);
 		unset($deletedData['audio_file_src']);
 		$this->tester->dontSeeRecord($this->modelClass, $deletedData);

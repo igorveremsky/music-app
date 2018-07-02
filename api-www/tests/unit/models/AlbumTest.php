@@ -118,7 +118,7 @@ class AlbumTest extends \Codeception\Test\Unit {
 		$model = $this->modelClass::findOne($this->id);
 		$this->tester->assertNotNull($model);
 		$model->delete();
-		$deletedData = array_merge(['id' => $this->id], $this->forUpdateData);
+		$deletedData = array_merge(['id' => $this->id], $this->initData);
 		$this->tester->dontSeeRecord(Image::class, ['file_src' => $deletedData['cover_img_src']]);
 		unset($deletedData['cover_img_src']);
 		$this->tester->dontSeeRecord($this->modelClass, $deletedData);

@@ -33,7 +33,7 @@ class m180626_140933_create_tracks_table extends Migration
 		    'file_id',
 		    '{{%audiofiles}}',
 		    'id',
-		    'CASCADE',
+		    'RESTRICT',
 		    'CASCADE'
 	    );
 

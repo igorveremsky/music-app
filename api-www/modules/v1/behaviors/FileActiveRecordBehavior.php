@@ -4,6 +4,7 @@ namespace app\modules\v1\behaviors;
 
 use app\modules\v1\helpers\FileHelper;
 use app\modules\v1\interfaces\FileInterface;
+use app\modules\v1\models\Audiofile;
 use app\modules\v1\models\Image;
 use app\modules\v1\validators\ExistFileValidator;
 use yii\base\InvalidConfigException;
@@ -69,15 +70,15 @@ class FileActiveRecordBehavior extends Behavior {
 		parent::attach($owner);
 
 		if (!isset(class_implements($this->fileClass)[FileInterface::class])) {
-			throw new InvalidConfigException($this->fileClass.' must implement '.FileInterface::class);
+			throw new InvalidConfigException($this->fileClass . ' must implement ' . FileInterface::class);
 		}
 
 		if (!is_subclass_of($this->fileClass, ActiveRecord::class)) {
-			throw new InvalidConfigException($this->fileClass.' must extends from ActiveRecord');
+			throw new InvalidConfigException($this->fileClass . ' must extends from ActiveRecord');
 		}
 
 		if (!is_subclass_of($owner, ActiveRecord::class)) {
-			throw new InvalidConfigException($owner::className().' must extends from ActiveRecord');
+			throw new InvalidConfigException($owner::className() . ' must extends from ActiveRecord');
 		}
 
 		$validators = $owner->validators;
@@ -119,6 +120,7 @@ class FileActiveRecordBehavior extends Behavior {
 			ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeUpdateOrInsert',
 			ActiveRecord::EVENT_BEFORE_INSERT => 'beforeUpdateOrInsert',
 			ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
+			ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
 		];
 	}
 
@@ -157,7 +159,6 @@ class FileActiveRecordBehavior extends Behavior {
 	public function beforeUpdateOrInsert($event) {
 		/* @var $owner ActiveRecord */
 		$owner = $event->sender;
-		$insert = $owner->isNewRecord;
 
 		if (!empty($this->getFileSrc($owner))) {
 			$transaction = Yii::$app->db->beginTransaction();
@@ -171,10 +172,6 @@ class FileActiveRecordBehavior extends Behavior {
 					return false;
 				}
 
-				if ($this->deleteOnUpdate && !$insert && $this->getFileId($owner) !== $file->id) {
-					$this->deleteFile($owner, true);
-				}
-
 				$owner->{$this->fileIdAttribute} = $file->id;
 
 				$transaction->commit();
@@ -185,6 +182,24 @@ class FileActiveRecordBehavior extends Behavior {
 				$transaction->rollBack();
 				throw $e;
 			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * After update handle function
+	 *
+	 * @param $event
+	 *
+	 * @return bool
+	 * @throws \Throwable
+	 */
+	public function afterUpdate($event) {
+		$changedAttributes = $event->changedAttributes;
+
+		if ($this->deleteOnUpdate && array_key_exists($this->fileIdAttribute, $changedAttributes) && !empty($changedAttributes[$this->fileIdAttribute])) {
+			$this->deleteFileRecord($changedAttributes[$this->fileIdAttribute]);
 		}
 
 		return true;
@@ -214,7 +229,8 @@ class FileActiveRecordBehavior extends Behavior {
 	 *
 	 * @return ActiveRecord
 	 */
-	public function getPrivateFile() : ActiveRecord {
+	public function getPrivateFile()
+	: ActiveRecord {
 		if ($this->_file === null) {
 			/* @var $fileClass FileInterface */
 			/* @var $file ActiveRecord */
@@ -266,6 +282,23 @@ class FileActiveRecordBehavior extends Behavior {
 	 * @return int
 	 */
 	protected function deleteFile(ActiveRecord $owner, $old = false) {
-		return Image::deleteAll([$this->fileClassRelativeAttribute => $this->getFileId($owner, $old)]);;
+		/* @var $fileClass ActiveRecord */
+		$fileClass = $this->fileClass;
+
+		return $this->deleteFileRecord($this->getFileId($owner, $old));
+	}
+
+	/**
+	 * Delete file record at db
+	 *
+	 * @param $fileId
+	 *
+	 * @return int
+	 */
+	protected function deleteFileRecord($fileId) {
+		/* @var $fileClass ActiveRecord */
+		$fileClass = $this->fileClass;
+
+		return $fileClass::deleteAll([$this->fileClassRelativeAttribute => $fileId]);
 	}
 }

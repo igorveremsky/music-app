@@ -10,22 +10,25 @@ use yii\db\ActiveRecord;
  * @package tests\api\models
  *
  * @property \UnitTester $tester
+ * @property ActiveRecord $modelClass
  */
 class GenreTest extends \Codeception\Test\Unit {
+	protected $modelClass = Genre::class;
 	protected $initData = ['name' => 'hip-hop'];
 	protected $forSaveData = ['name' => 'rock'];
 	protected $forUpdateData = ['name' => 'rap'];
 
-	protected $genreId;
+	protected $id;
 
 	function _before()
 	{
 		// preparing a user, inserting user record to database
-		$this->genreId = $this->tester->haveRecord(Genre::class, $this->initData);
+		$this->id = $this->tester->haveRecord($this->modelClass, $this->initData);
 	}
 
 	public function testValidation() {
-		$model = new Genre();
+		/* @var $model ActiveRecord */
+		$model = new $this->modelClass;
 
 		$model->name = null;
 		$this->tester->assertFalse($model->validate('name'));
@@ -38,33 +41,34 @@ class GenreTest extends \Codeception\Test\Unit {
 	 * @depends testValidation
 	 */
 	public function testCreate() {
-		$model = new Genre();
+		/* @var $model ActiveRecord */
+		$model = new $this->modelClass();
 		$this->setModelAttributes($model, $this->forSaveData);
 		$model->save(false);
-		$this->tester->seeRecord(Genre::class, $this->forSaveData);
+		$this->tester->seeRecord($this->modelClass, $this->forSaveData);
 	}
 
 	public function testUpdate() {
-		$model = Genre::findOne($this->genreId);
+		$model = $this->modelClass::findOne($this->id);
 		$this->tester->assertNotNull($model);
 		$this->setModelAttributes($model, $this->forUpdateData);
 		$model->save();
-		$updatedData = array_merge(['id' => $this->genreId], $this->forUpdateData);
-		$this->tester->seeRecord(Genre::class, $updatedData);
-		$this->tester->dontSeeRecord(Genre::class, $this->initData);
+		$updatedData = array_merge(['id' => $this->id], $this->forUpdateData);
+		$this->tester->seeRecord($this->modelClass, $updatedData);
+		$this->tester->dontSeeRecord($this->modelClass, $this->initData);
 	}
 
 	public function testDelete() {
-		$model = Genre::findOne($this->genreId);
+		$model = $this->modelClass::findOne($this->id);
 		$this->tester->assertNotNull($model);
 		$model->delete();
-		$deletedData = array_merge(['id' => $this->genreId], $this->forUpdateData);
-		$this->tester->dontSeeRecord(Genre::class, $deletedData);
+		$deletedData = array_merge(['id' => $this->id], $this->forUpdateData);
+		$this->tester->dontSeeRecord($this->modelClass, $deletedData);
 	}
 
 	protected function setModelAttributes(ActiveRecord $model, $data) {
 		foreach ($data as $attribute => $value) {
-			$model->setAttribute($attribute, $value);
+			$model->$attribute = $value;
 		}
 	}
 }

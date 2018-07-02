@@ -8,13 +8,13 @@ use app\modules\v1\models\Image;
 use yii\db\ActiveRecord;
 
 /**
- * Class AlbumsTest
+ * Class AlbumTest
  * @package tests\models
  *
  * @property \UnitTester $tester
  * @property ActiveRecord $modelClass
  */
-class AlbumsTest extends \Codeception\Test\Unit {
+class AlbumTest extends \Codeception\Test\Unit {
 	protected $modelClass = Album::class;
 	protected $initData = [
 		'name' => 'album',

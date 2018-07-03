@@ -8,7 +8,7 @@
 
 ## Versions
 
-**Docker** - 0.9.1<br>
+**Docker** - 0.10.0<br>
 **API** - 0.8.0<br>
 **Admin panel** - 0.9.0<br>
 **Nginx** - 0.2.0<br>
@@ -31,7 +31,7 @@
 - [ ] api application setup configuration
 - [ ] test dumpy data import script
 - [ ] admin panel application setup configuration
-- [ ] ElasticSearch
+- [x] ElasticSearch
 - [ ] .env
 - [ ] entrypoint.sh
 
@@ -73,7 +73,7 @@
 - [x] tracks structure
 - [x] genres structure
 - [x] favorites structure
-- [ ] elasticsearch
+- [x] elasticsearch
 - [ ] structure optimization (add indexes etc)
 
 ### PHPUnit Tests

@@ -26,6 +26,7 @@ services:
       - "admin.gt-music-app.com:172.21.0.5"
     depends_on:
       - db
+      - elasticsearch
 
   db:
     image: mysql:8.0.3
@@ -45,3 +46,19 @@ services:
       - 8081:80
     depends_on:
       - db
+
+  elasticsearch:
+    image: elasticsearch:5.6
+    container_name: app-elasticsearch
+    environment:
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: kibana:5.6
+    container_name: app-kibana
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch

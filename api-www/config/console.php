@@ -26,6 +26,13 @@ $config = [
             ],
         ],
         'db' => $db,
+	    'elasticsearch' => [
+		    'class' => 'yii\elasticsearch\Connection',
+		    'nodes' => [
+			    ['http_address' => 'elasticsearch:9200'],
+			    // configure more hosts if you have a cluster
+		    ],
+	    ],
     ],
     'params' => $params,
 ];

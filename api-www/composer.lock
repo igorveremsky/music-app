@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32272f883a1b11a151f7e9462be7fda4",
+    "content-hash": "50d4cf8bf0dcd9b1c5acbe2f3731e2a0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -542,6 +542,55 @@
                 "yii2"
             ],
             "time": "2018-05-04T21:18:11+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-elasticsearch",
+            "version": "2.1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-elasticsearch.git",
+                "reference": "ca76f01e93605b2b6dfb7dbaa30cf4070141bf7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-elasticsearch/zipball/ca76f01e93605b2b6dfb7dbaa30cf4070141bf7c",
+                "reference": "ca76f01e93605b2b6dfb7dbaa30cf4070141bf7c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "yiisoft/yii2": "~2.0.14"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\elasticsearch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc"
+                }
+            ],
+            "description": "Elasticsearch integration and ActiveRecord for the Yii framework",
+            "keywords": [
+                "active-record",
+                "elasticsearch",
+                "fulltext",
+                "search",
+                "yii2"
+            ],
+            "time": "2018-03-27T22:33:22+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",

@@ -63,7 +63,10 @@ $config = [
 			'rules' => [
 				[
 					'class' => 'yii\rest\UrlRule',
-					'controller' => 'v1/genre'
+					'controller' => 'v1/genre',
+					'extraPatterns' => [
+						'GET search' => 'search',
+					]
 				],
 				[
 					'class' => 'yii\rest\UrlRule',
@@ -81,6 +84,17 @@ $config = [
 					'class' => 'yii\rest\UrlRule',
 					'controller' => 'v1/favorite'
 				],
+				[
+					'class' => 'yii\rest\UrlRule',
+					'controller' => 'v1/book'
+				],
+			],
+		],
+		'elasticsearch' => [
+			'class' => 'yii\elasticsearch\Connection',
+			'nodes' => [
+				['http_address' => 'elasticsearch:9200'],
+				// configure more hosts if you have a cluster
 			],
 		],
 	],

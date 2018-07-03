@@ -1,10 +1,15 @@
 # Music Application
 
+## Installation Guide
+
+Just run ```entrypoint.sh``` :)
+
 ## Links
 
 **API** - http://api.gt-music-app.com/<br>
 **Admin panel** - http://admin.gt-music-app.com/<br>
 **phpMyAdmin** - http://localhost:8081/<br>
+**kibana** - http://localhost:5601/<br>
 
 ## Versions
 
@@ -29,11 +34,11 @@
 - [x] PhpMyAdmin (4.7)
 - [x] server configurations (nginx)
 - [ ] api application setup configuration
-- [ ] test dumpy data import script
+- [x] test dumpy data import script
 - [ ] admin panel application setup configuration
 - [x] ElasticSearch
 - [ ] .env
-- [ ] entrypoint.sh
+- [x] entrypoint.sh
 
 ### Nginx
 
@@ -87,5 +92,5 @@
 
 ### General
 
-- [ ] installation and build guide
+- [x] installation and build guide
 - [ ] configuration docs

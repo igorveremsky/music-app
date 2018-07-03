@@ -2,7 +2,9 @@
 
 ## Installation Guide
 
-Just run ```entrypoint.sh``` :)
+1. Change line separator at ```docker/php/configs/composer```, ```docker/php/configs/docker-php-entrypoint``` to ```LF (\n)```
+2. Run ```entrypoint.sh```
+3. Enjoy the silence :)
 
 ## Links
 
@@ -11,9 +13,18 @@ Just run ```entrypoint.sh``` :)
 **phpMyAdmin** - http://localhost:8081/<br>
 **kibana** - http://localhost:5601/<br>
 
+## Demo Users
+
+1. Login: ```admin```, Password ```admin```
+2. Login: ```demo```, Password ```demo```
+
+## Tests
+
+Run ```docker exec -w /var/www/html/api.gt-music-app.com app-php ./vendor/bin/codecept run unit```
+
 ## Versions
 
-**Docker** - 0.10.0<br>
+**Docker** - 0.10.1<br>
 **API** - 0.8.1<br>
 **Admin panel** - 0.9.0<br>
 **Nginx** - 0.2.0<br>

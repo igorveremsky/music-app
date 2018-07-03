@@ -26,6 +26,7 @@ services:
       - "admin.gt-music-app.com:172.21.0.5"
     depends_on:
       - db
+      - dbtest
       - elasticsearch
 
   db:
@@ -35,6 +36,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secretroot
       MYSQL_DATABASE: gt_music_app_db
+
+  dbtest:
+    image: mysql:8.0.3
+    container_name: app-db-test
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secretroot
+      MYSQL_DATABASE: gt_music_app_test_db
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7
@@ -46,6 +55,7 @@ services:
       - 8081:80
     depends_on:
       - db
+      - dbtest
 
   elasticsearch:
     image: elasticsearch:5.6

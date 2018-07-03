@@ -3,8 +3,14 @@
 ## Installation Guide
 
 1. Change line separator at ```docker/php/configs/composer```, ```docker/php/configs/docker-php-entrypoint``` to ```LF (\n)```
-2. Run ```entrypoint.sh```
-3. Enjoy the silence :)
+2. Add 
+```
+127.0.0.1 api.gt-music-app.com
+127.0.0.1 admin.gt-music-app.com
+```
+to ```hosts``` config
+3. Run ```entrypoint.sh```
+4. Enjoy the silence :)
 
 ## Links
 
